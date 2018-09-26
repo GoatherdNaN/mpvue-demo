@@ -4,12 +4,11 @@
     <div class="category-list">
       <div 
         class="category-item"
-        :class="[item.tag === '__all__' ?'disabled':'']" 
-        @click="changeCategory(item.tag)" 
-        v-for="item in categories"
+        @click="changeCategory(item,index)" 
+        v-for="(item,index) in categories"
         :key="item.tag"
       >
-        {{item.categoryName}}
+        <div :class="item.disabled ? 'disabled' : ''">{{item.categoryName}}</div>
       </div>
     </div>
   </div>
@@ -17,16 +16,34 @@
 
 <script>
 export default {
-  props: ['title','categories'],
+  props: {
+    title: {  // 必须提供字段
+      required: true
+    },
+    categories: {   // 可选字段，有默认值
+      default: []
+    }
+  },
+  mounted () {
+    this.$emit('change');
+  },
   methods: {
-    changeCategory(tag) {
-      _this.$emit('onchange',tag);
+    changeCategory(item,index) {
+      if(!item.disabled) {
+        console.log('====================================');
+        console.log(this);
+        console.log('====================================');
+        this.$emit('xxchange',index);
+      }
     }
   }
 };
 </script>
 
 <style lang='less'>
+.category-panel {
+  margin-bottom: 20rpx;
+}
 .header {
   width: 100%;
   padding: 0 20rpx;
@@ -37,14 +54,17 @@ export default {
 }
 .category-item {
     display: inline-block;
-    width: 20%;
-    margin: 18rpx;
-    animation: zoomIn .3s ease;
-    font-size: 24rpx;
-    border: 2rpx solid #ccc;
-    text-align: center;
-    line-height: 50rpx;
-    &,.disabled {
+    width: 25%;
+    margin-bottom: 16rpx;
+    div {
+      margin: 0 18rpx;
+      animation: zoomIn .5s ease;
+      font-size: 24rpx;
+      border: 2rpx solid #ccc;
+      text-align: center;
+      line-height: 50rpx;
+    }
+    .disabled {
       background-color: #f0f0f0;
     }
   }

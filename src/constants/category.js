@@ -2,6 +2,7 @@ const allCategory = [
   {
     tag: '__all__',
     categoryName: '推荐',
+    disabled: true
   },
   {
     tag: 'news_society',
