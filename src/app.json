@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/category/main",
+    "pages/index/main",
+    "pages/counter/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#D43D3D",
+    "navigationBarTitleText": "今日头条",
+    "navigationBarTextStyle": "white"
+  }
+}
