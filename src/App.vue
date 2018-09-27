@@ -23,6 +23,11 @@ page {
   background: #f8f8f8;
   height: 100%;
 }
+image,img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 /* this rule will be remove */
 /* * {
   transition: width 2s;

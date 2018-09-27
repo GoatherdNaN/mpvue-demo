@@ -13,7 +13,9 @@
     </scroll-view>
     <span @click="toMore" class="iconfont icon-jia"></span>
   </div>
-  <div class="news-list">这是添加新闻列表的地方，在组件里封装</div>
+  <div class="news-list">
+    <article-list :newsList="newsList"></article-list>
+  </div>
   <div class="refresh" @click="refresh">
     <span class="iconfont icon-shuaxin" :class="refreshClass"></span>
   </div>
@@ -22,6 +24,7 @@
 
 <script>
 import store from './store';
+import articleList from '@/components/articleList.vue';
 
 export default {
   data() {
@@ -35,13 +38,23 @@ export default {
     categories() {
       return store.state.currentCategories;
     },
+    newsList() {
+      return store.state.newsList;
+    }
+  },
+
+  mounted() {
+    this.getNewsList();
   },
 
   components: {
-    // card,
+    'article-list': articleList,
   },
 
   methods: {
+    getNewsList(params={}) {
+      store.dispatch('getNewsList',params);
+    },
     changeTab(index,tag) {
       this.nowIndex = index;
       if (index > 4) {

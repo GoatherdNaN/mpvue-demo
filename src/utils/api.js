@@ -1,7 +1,7 @@
 import request from './request'
 
 const api = {
-  getNewsArr: () => request.get('http://m.toutiao.com/list', {
+  getNewsList: params => request('http://m.toutiao.com/list', {
     tag: '__all__',
     ac: 'wap',
     count: 20, // 一次返回条数
@@ -10,7 +10,8 @@ const api = {
     cp: '58EC18F948F79E1',
     min_behot_time: 0,
     _signature: 's-VgJwAA6Nc8JsRWK-PBirPlYD',
-    i: 0
+    i: 0,
+    ...params
   })
 }
 
