@@ -2,6 +2,7 @@
   <div class="info">
     <text v-if="news.hot" class="hot tag news-info">热</text>
     <text v-if="news.is_stick" class="is-stick tag news-info">置顶</text>
+    <text v-if="isAd" class="is-stick tag news-info">广告</text>
     <text class="news-info">{{news.media_name}}</text>
     <text class="news-info">评论 {{news.comment_count}}</text>
     <text v-if="news.publish_time < 1000*60*60*24" class="news-info">{{getDateDiff}}</text>
@@ -25,6 +26,9 @@ export default {
         return getDateDiff(this.news.publish_time);
       }
       return '';
+    },
+    isAd() {
+      return !!this.news.article_type && this.news.label === '广告';
     }
   }
 };

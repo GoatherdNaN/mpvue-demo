@@ -6,13 +6,13 @@ import { tempType } from '@/constants/config';
  * 1. 'noImage':无图   2. 'oneSmall': 一张小图    3. 'oneLarge': 一张大图    4. 'moreImages': 多图，一般就要3张
  */
 export function judgeImageTemp(article) {
-  if(!article.has_image) {
+	if(!!article.large_mode) {
+		return tempType.oneLarge;
+	}
+  if(!article.article_type && !article.has_image) {
     return tempType.noImage;
   }
   if(!article.image_list.length) {
-    if(!!article.large_mode) {
-      return tempType.oneLarge;
-    }
     return tempType.oneSmall;
   }
   return tempType.moreImages;

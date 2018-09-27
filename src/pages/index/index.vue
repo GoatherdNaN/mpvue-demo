@@ -30,8 +30,7 @@ export default {
   data() {
     return {
      scrollLeft: 0,
-     nowIndex: 0,
-     refreshClass: 'off',
+     nowIndex: 0
     };
   },
   computed: {
@@ -40,6 +39,12 @@ export default {
     },
     newsList() {
       return store.state.newsList;
+    },
+    refreshClass() {
+      return store.state.loading ? 'on' : 'off';
+    },
+    currentTag() {
+      return store.state.currentTag;
     }
   },
 
@@ -72,7 +77,7 @@ export default {
       });
     },
     refresh() {
-      this.refreshClass = this.refreshClass === 'on' ? 'off' : 'on';
+      this.getNewsList({tag: this.currentTag});
     }
   },
 
