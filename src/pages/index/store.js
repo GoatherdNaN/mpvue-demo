@@ -31,7 +31,7 @@ const store = new Vuex.Store({
     },
     saveNewsList: (state,newsList) => {
       const obj = state;
-      obj.newsList = [...obj.newsList,...newsList];
+      obj.newsList = newsList;
     }
   },
 });

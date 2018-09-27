@@ -62,6 +62,9 @@ export default {
       } else {
         this.scrollLeft = 0;
       }
+      this.getNewsList({
+        tag,
+      })
     },
     toMore() {
       wx.navigateTo({
