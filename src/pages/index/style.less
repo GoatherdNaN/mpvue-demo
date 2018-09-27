@@ -9,9 +9,7 @@
     white-space: nowrap;
     div {
       display: inline-block;
-      padding: 0 10rpx;
-      margin-left: 30rpx;
-      font-size: 30rpx;
+      padding: 0 24rpx;
       color: #505050;
     }
     .active {
@@ -28,5 +26,44 @@
     text-align: center;
     color:#f85959;
     box-shadow: -4rpx 0rpx 10rpx #ddd;
+  }
+}
+.news-list {
+  position: absolute;
+  top: 60rpx;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  // background: #3367D6;
+}
+.refresh {
+  position: absolute;
+  right: 30rpx;
+  bottom: 50rpx;
+  width: 66rpx;
+  line-height: 66rpx;
+  border-radius: 50%;
+  text-align: center;
+  background-color: #f8f8f8;
+  box-shadow: 0 6rpx 18rpx rgb(156, 161, 168);
+  .iconfont {
+    display: block;
+    font-size: 36rpx;
+    color: #D43D3D;
+    font-weight: bold;
+  }
+  .on {
+    animation: around 1s infinite linear normal backwards;
+  }
+  .off {
+    transform:rotate(0deg);
+  }
+  @keyframes around {
+    0% {
+      transform:rotate(0deg);
+    }
+    100% {
+      transform:rotate(360deg);
+    }
   }
 }

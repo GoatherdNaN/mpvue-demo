@@ -13,19 +13,28 @@
     </scroll-view>
     <span @click="toMore" class="iconfont icon-jia"></span>
   </div>
+  <div class="news-list">这是添加新闻列表的地方，在组件里封装</div>
+  <div class="refresh" @click="refresh">
+    <span class="iconfont icon-shuaxin" :class="refreshClass"></span>
+  </div>
 </div>
 </template>
 
 <script>
-import { initCategoryList } from '@/constants/category';
+import store from './store';
 
 export default {
   data() {
     return {
-     categories: initCategoryList,
      scrollLeft: 0,
      nowIndex: 0,
+     refreshClass: 'off',
     };
+  },
+  computed: {
+    categories() {
+      return store.state.currentCategories;
+    },
   },
 
   components: {
@@ -37,7 +46,6 @@ export default {
       this.nowIndex = index;
       if (index > 4) {
         this.scrollLeft = (index - 4) * 120;
-        console.log('s',index,this.scrollLeft);
       } else {
         this.scrollLeft = 0;
       }
@@ -46,6 +54,9 @@ export default {
       wx.navigateTo({
         url: "/pages/category/main",
       });
+    },
+    refresh() {
+      this.refreshClass = this.refreshClass === 'on' ? 'off' : 'on';
     }
   },
 

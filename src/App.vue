@@ -14,15 +14,20 @@ export default {
 <style>
 @import url("./iconfont/iconfont.css");
 .container {
-  height: 100vh;
-  background-color: #f8f8f8;
+  position: relative;
+  height: 100%;
   box-sizing: border-box;
+  font-size: 30rpx;
+}
+page {
+  background: #f8f8f8;
+  height: 100%;
 }
 /* this rule will be remove */
-* {
+/* * {
   transition: width 2s;
   -moz-transition: width 2s;
   -webkit-transition: width 2s;
   -o-transition: width 2s;
-}
+} */
 </style>

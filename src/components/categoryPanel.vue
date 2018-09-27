@@ -21,6 +21,7 @@ export default {
       required: true
     },
     categories: {   // 可选字段，有默认值
+      type: Array,
       default: []
     }
   },
@@ -30,10 +31,7 @@ export default {
   methods: {
     changeCategory(item,index) {
       if(!item.disabled) {
-        console.log('====================================');
-        console.log(this);
-        console.log('====================================');
-        this.$emit('xxchange',index);
+        this.$emit('onchange',index);
       }
     }
   }
