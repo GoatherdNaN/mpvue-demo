@@ -1,11 +1,11 @@
 <template>
   <div class="info">
-    <text v-if="news.hot" class="hot tag news-info">热</text>
-    <text v-if="news.is_stick" class="is-stick tag news-info">置顶</text>
-    <text v-if="isAd" class="is-stick tag news-info">广告</text>
+    <text v-if="news.hot" class="tag news-info">热</text>
+    <text v-if="news.is_stick" class="tag news-info">置顶</text>
+    <text v-if="isAd" class="blue tag news-info">广告</text>
     <text class="news-info">{{news.media_name}}</text>
     <text class="news-info">评论 {{news.comment_count}}</text>
-    <text v-if="news.publish_time < 1000*60*60*24" class="news-info">{{getDateDiff}}</text>
+    <text class="news-info">{{getDateDiff}}</text>
   </div>
 </template>
 
@@ -49,7 +49,7 @@ export default {
     border: 2rpx solid rgba(248, 89, 89, 0.5);
     border-radius: 6rpx;
     padding: 0 4rpx;
-    &.is-stick {
+    &.blue {
       color: rgba(42, 144, 215, 0.5);
       border-color: rgba(42, 144, 215, 0.5);
     }

@@ -33,6 +33,17 @@ export default {
      nowIndex: 0
     };
   },
+  onReachBottom() {
+    if (!this.hasMore) {
+      return false;
+    }
+    this.getNewsList({},false);
+  },
+
+  mounted() {
+    this.getNewsList();
+  },
+
   computed: {
     categories() {
       return store.state.currentCategories;
@@ -45,20 +56,19 @@ export default {
     },
     currentTag() {
       return store.state.currentTag;
-    }
-  },
-
-  mounted() {
-    this.getNewsList();
-  },
-
-  components: {
-    'article-list': articleList,
+    },
+    hasMore() {
+      return store.state.hasMore;
+    },
   },
 
   methods: {
-    getNewsList(params={}) {
-      store.dispatch('getNewsList',params);
+    getNewsList(params={}, isFirst=true) {
+      params.tag = params.tag || this.currentTag;
+      if(!isFirst) {
+        const now = new Date().getTime();
+      }
+      store.dispatch('getNewsList',{isFirst,params});
     },
     changeTab(index,tag) {
       this.nowIndex = index;
@@ -77,14 +87,13 @@ export default {
       });
     },
     refresh() {
-      this.getNewsList({tag: this.currentTag});
-    }
+      this.getNewsList();
+    },
   },
-
-  created() {
-    // 调用应用实例的方法获取全局数据
-    // this.getUserInfo();
-  },
+  
+  components: {
+    'article-list': articleList,
+  }
 };
 </script>
 

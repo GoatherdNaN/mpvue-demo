@@ -20,7 +20,7 @@ export default {
   font-size: 30rpx;
 }
 page {
-  background: #f8f8f8;
+  /* background: #f8f8f8; */
   height: 100%;
 }
 image,img {

@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div 
-      @click="toNewsDetail" 
+    <div v-show="!showList" class="spin">加载中...</div>
+    <div v-show="showTips" class="tips">为你推荐了{{newNewsList.length}}篇文章</div>
+    <div
+      v-show="showList"
+      @click="toNewsDetail(item.group_id)"
       v-for="(item, index) in newNewsList"
       :key="index"
       class="news-item"
@@ -44,6 +47,8 @@
         </div>
       </template>
     </div>
+    <div v-if="moreLoading" class="spin moreSpin">加载中...</div>
+    <div v-if="showSoleTips" class="spin moreSpin">⊙ω⊙ 到底了哦！</div>
   </div>
 </template>
 
@@ -51,11 +56,13 @@
 import { tempType } from '@/constants/config.js';
 import { judgeImageTemp } from '@/utils/index.js';
 import newsItemInfo from '@/components/newsItemInfo.vue';
+import store from '@/pages/index/store';
 
 export default {
   data() {
     return {
       tempType: tempType,
+      showTips: false,
     }
   },
   props: ['newsList'],
@@ -65,20 +72,59 @@ export default {
         v.type = judgeImageTemp(v);
         return v;
       })
+    },
+    showList() {
+      return !store.state.firstLoading;
+    },
+    showSoleTips() {
+      return !store.state.hasMore;
+    },
+    moreLoading() {
+      return store.state.moreLoading;
     }
   },
   methods: {
-    toNewsDetail() {
+    toNewsDetail(i) {
       console.log('跳转详情！');
+      store.dispatch('getNewsDetail',{i})
     },
   },
   components: {
     'news-item-info': newsItemInfo,
   },
+  watch: {
+    showList(curVal,oldVal){
+      if(!oldVal && curVal) {
+        this.showTips = true;
+        this.timer = setTimeout(() => {
+          this.showTips = false;
+          clearTimeout(this.timer);
+        },1000);
+      }
+    }
+  }
 };
 </script>
 
 <style lang='less'>
+.spin {
+  line-height: 60rpx;
+  text-align: center;
+  color: rgba(27, 4, 4, 0.5);
+}
+.moreSpin {
+  color: #999;
+}
+.tips {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 60rpx;
+  line-height: 52rpx;
+  text-align: center;
+  color: #429DDC;
+  background: rgba(217,235,248,0.9);
+}
 .news-item {
   padding: 24rpx 0;
   border-bottom: 1px solid rgba(221, 221, 221, 0.6);
@@ -88,15 +134,15 @@ export default {
     display: inline-block;
     vertical-align: middle;
     &.desc {
-      width: 70%;
+      width: 66%;
       .desc-title {
         display: block;
         margin-right: 20rpx;
       }
     }
     &.img-info {
-      width: 30%;
-      height: 100rpx;
+      width: 33.3%;
+      height: 140rpx;
       background: url(//s3b.pstatp.com/growth/mobile_list/image/toutiaoicon_loading_textpage@3x_f7c130ce.png) #efefef no-repeat center center;
       background-size: 50%;
     }

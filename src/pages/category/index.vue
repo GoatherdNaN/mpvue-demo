@@ -1,5 +1,5 @@
 <template>
-  <div class='container'>
+  <div class='container categoryPage'>
     <category-panel @onchange="changeCurrentCategory" :title="title1" :categories="categories"></category-panel>
     <category-panel @onchange="changeOtherCategory" :title="title2" :categories="otherCategoies"></category-panel>
   </div>
@@ -48,5 +48,7 @@ export default {
 
 <style lang='less' scoped>
   @import "./style";
-
+  .categoryPage {
+    background-color: #f8f8f8;
+  }
 </style>

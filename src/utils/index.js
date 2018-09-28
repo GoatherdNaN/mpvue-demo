@@ -9,7 +9,14 @@ export function judgeImageTemp(article) {
 	if(!!article.large_mode) {
 		return tempType.oneLarge;
 	}
-  if(!article.article_type && !article.has_image) {
+	if(article.article_type) {
+		if(!article.image_list.length) {
+			if(!article.image_url) return tempType.noImage;
+			return tempType.noSmall
+		}
+		return tempType.moreImages;
+	}
+  if(!article.has_image) {
     return tempType.noImage;
   }
   if(!article.image_list.length) {
