@@ -19,7 +19,7 @@ const store = new Vuex.Store({
   },
   actions: {
     async getNewsList({ commit,state }, payload) {
-      const {isFirst, params} = payload;
+      const { isFirst, params } = payload;
       const isSameTag = state.currentTag === params.tag;
       if(isFirst) {
         state.firstLoading = true;
@@ -33,7 +33,10 @@ const store = new Vuex.Store({
       }
       state.loading = true;
       params.i = params.min_behot_time = state.min_behot_time;
-      const res = await Api.getNewsList(params);
+
+      const _signature = await Api.getSignature({ min_behot_time: state.min_behot_time });
+      const res = await Api.getNewsList({ ...params, _signature });
+
       if(Array.isArray(res.data) && res.data.length) {
          state.min_behot_time = res.data[res.data.length - 1].behot_time;
       }
@@ -49,7 +52,8 @@ const store = new Vuex.Store({
       }
     },
     async getNewsDetail({ commit, state }, params) {
-      const res = await Api.getNewsDetail(params);
+      const _signature = await Api.getSignature({ min_behot_time: state.min_behot_time });
+      const res = await Api.getNewsDetail({ ...params, _signature });
       console.log('res',res);
     }
   },
@@ -74,7 +78,7 @@ const store = new Vuex.Store({
     },
     saveHasMore: (state,hasMore) => {
       const obj = state;
-      obj.hasMore = hasMore;
+      obj.hasMore = true;
     },
   },
 });
